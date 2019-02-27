@@ -37,7 +37,11 @@ namespace SaleSystemCore.EF
         }
 
         public DbSet<ProductsCategory> ProductsCategories { get; set; }
-        public DbSet<ProductsBrand> ProductsBrands { get; set; }    
-
+        public DbSet<ProductsBrand> ProductsBrands { get; set; }
+        public DbSet<ProductsProvider> ProductsProviders { get; set; }
+        public DbSet<Product> Products { get; set; }
+        public DbSet<PurchaseInvoices> PurchaseInvoices { get; set; }
+        public DbSet<PurchaseInvoiceDetails> PurchaseInvoiceDetails { get; set; }
+            
     }
 }

@@ -9,7 +9,7 @@ using System.Linq;
 
 namespace SaleSystemCore.Repos
 {
-    class ProductsBrandRepo : RepoBase<ProductsBrand>
+    public class ProductsBrandRepo : RepoBase<ProductsBrand>
     {
         public ProductsBrandRepo(DbContextOptions<CoreContext> options)
             : base(options)
