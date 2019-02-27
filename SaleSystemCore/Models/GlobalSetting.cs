@@ -8,6 +8,9 @@ namespace SaleSystemCore.Models
     [Table("GlobalSetting")]
     public class GlobalSetting : EntityBase
     {
-        // too keep sale and buy invoice number counters , selected language , product barcode counter and etc
+        public long SaleInvoiceCounter { get; set; }
+        public long PurchaseInvoiceCounter { get; set; }
+        public long ProductBarcodeCounter { get; set; }
+        public string SelectedLanguage { get; set; }    
     }
 }

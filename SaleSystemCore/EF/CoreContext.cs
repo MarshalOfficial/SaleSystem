@@ -46,12 +46,15 @@ namespace SaleSystemCore.EF
         public DbSet<ProductsBrand> ProductsBrands { get; set; }
         public DbSet<ProductsProvider> ProductsProviders { get; set; }
         public DbSet<Product> Products { get; set; }
-        public DbSet<PurchaseInvoice> PurchaseInvoice { get; set; }
+        public DbSet<PurchaseInvoice> PurchaseInvoices { get; set; }
         public DbSet<PurchaseInvoiceDetails> PurchaseInvoiceDetails { get; set; }
         public DbSet<PurchaseInvoiceDetailsTemp> PurchaseInvoiceDetailsTemps { get; set; }
-        public DbSet<SaleInvoice> SaleInvoice { get; set; }
+        public DbSet<SaleInvoice> SaleInvoices { get; set; }
         public DbSet<SaleInvoiceDetails> SaleInvoiceDetails { get; set; }
         public DbSet<SaleInvoiceDetailsTemp> SaleInvoiceDetailsTemps { get; set; }
-
+        public DbSet<Stock> Stocks { get; set; }
+        public DbSet<StockLog> StockLogs { get; set; }
+        public DbSet<Customer> Customers { get; set; }
+        public DbSet<GlobalSetting> GlobalSetting { get; set; }     
     }
 }
