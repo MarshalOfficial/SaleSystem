@@ -46,6 +46,14 @@ namespace SaleSystemCore.Migrations
                     b.Property<string>("Name")
                         .HasMaxLength(250);
 
+                    b.Property<decimal?>("ProfitMargin")
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasComputedColumnSql("((isnull(SalePrice,0) - isnull(PurchasePrice,0))/isnull(SalePrice,0))*100");
+
+                    b.Property<decimal?>("ProfitMarkup")
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasComputedColumnSql("((isnull(SalePrice,0) - isnull(PurchasePrice,0))/isnull(PurchasePrice,0))*100");
+
                     b.Property<int?>("ProviderID");
 
                     b.Property<decimal?>("PurchasePrice")
@@ -171,6 +179,47 @@ namespace SaleSystemCore.Migrations
                     b.ToTable("ProductsProvider");
                 });
 
+            modelBuilder.Entity("SaleSystemCore.Models.PurchaseInvoice", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("CreateDate");
+
+                    b.Property<string>("Description");
+
+                    b.Property<DateTime?>("InvoiceDate");
+
+                    b.Property<string>("InvoiceNumber")
+                        .HasMaxLength(150);
+
+                    b.Property<bool>("IsActive");
+
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<int?>("ProviderID");
+
+                    b.Property<decimal?>("SumDiscount")
+                        .HasColumnType("decimal(18, 2)");
+
+                    b.Property<decimal?>("SumPrice")
+                        .HasColumnType("decimal(18, 2)");
+
+                    b.Property<decimal?>("SumVat")
+                        .HasColumnType("decimal(18, 2)");
+
+                    b.Property<byte[]>("TimeStamp")
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate();
+
+                    b.Property<int>("UserID");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("PurchaseInvoice");
+                });
+
             modelBuilder.Entity("SaleSystemCore.Models.PurchaseInvoiceDetails", b =>
                 {
                     b.Property<int>("Id")
@@ -210,7 +259,7 @@ namespace SaleSystemCore.Migrations
                     b.ToTable("PurchaseInvoiceDetails");
                 });
 
-            modelBuilder.Entity("SaleSystemCore.Models.PurchaseInvoices", b =>
+            modelBuilder.Entity("SaleSystemCore.Models.PurchaseInvoiceDetailsTemp", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -220,7 +269,46 @@ namespace SaleSystemCore.Migrations
 
                     b.Property<string>("Description");
 
-                    b.Property<DateTime?>("InvoiceDate");
+                    b.Property<decimal?>("Discount")
+                        .HasColumnType("decimal(18, 2)");
+
+                    b.Property<bool>("IsActive");
+
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18, 2)");
+
+                    b.Property<int>("ProductID");
+
+                    b.Property<decimal>("Qty")
+                        .HasColumnType("decimal(18, 2)");
+
+                    b.Property<byte[]>("TimeStamp")
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate();
+
+                    b.Property<int>("UserID");
+
+                    b.Property<decimal?>("Vat")
+                        .HasColumnType("decimal(18, 2)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("PurchaseInvoiceDetailsTemp");
+                });
+
+            modelBuilder.Entity("SaleSystemCore.Models.SaleInvoice", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("CreateDate");
+
+                    b.Property<int?>("CustomerID");
+
+                    b.Property<string>("Description");
 
                     b.Property<string>("InvoiceNumber")
                         .HasMaxLength(150);
@@ -228,8 +316,6 @@ namespace SaleSystemCore.Migrations
                     b.Property<bool>("IsActive");
 
                     b.Property<bool>("IsDeleted");
-
-                    b.Property<int?>("ProviderID");
 
                     b.Property<decimal?>("SumDiscount")
                         .HasColumnType("decimal(18, 2)");
@@ -244,9 +330,95 @@ namespace SaleSystemCore.Migrations
                         .IsConcurrencyToken()
                         .ValueGeneratedOnAddOrUpdate();
 
+                    b.Property<int>("UserID");
+
                     b.HasKey("Id");
 
-                    b.ToTable("PurchaseInvoice");
+                    b.ToTable("SaleInvoice");
+                });
+
+            modelBuilder.Entity("SaleSystemCore.Models.SaleInvoiceDetails", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("CreateDate");
+
+                    b.Property<string>("Description");
+
+                    b.Property<decimal?>("Discount")
+                        .HasColumnType("decimal(18, 2)");
+
+                    b.Property<int>("InvoiceID");
+
+                    b.Property<bool>("IsActive");
+
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<int>("ProductID");
+
+                    b.Property<decimal>("PurchasePrice")
+                        .HasColumnType("decimal(18, 2)");
+
+                    b.Property<decimal>("Qty")
+                        .HasColumnType("decimal(18, 2)");
+
+                    b.Property<decimal>("SalePrice")
+                        .HasColumnType("decimal(18, 2)");
+
+                    b.Property<byte[]>("TimeStamp")
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate();
+
+                    b.Property<decimal?>("Vat")
+                        .HasColumnType("decimal(18, 2)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("SaleInvoiceDetails");
+                });
+
+            modelBuilder.Entity("SaleSystemCore.Models.SaleInvoiceDetailsTemp", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("CreateDate");
+
+                    b.Property<string>("Description");
+
+                    b.Property<decimal?>("Discount")
+                        .HasColumnType("decimal(18, 2)");
+
+                    b.Property<bool>("IsActive");
+
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<int>("ProductID");
+
+                    b.Property<decimal>("PurchasePrice")
+                        .HasColumnType("decimal(18, 2)");
+
+                    b.Property<decimal>("Qty")
+                        .HasColumnType("decimal(18, 2)");
+
+                    b.Property<decimal>("SalePrice")
+                        .HasColumnType("decimal(18, 2)");
+
+                    b.Property<byte[]>("TimeStamp")
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate();
+
+                    b.Property<int>("UserID");
+
+                    b.Property<decimal?>("Vat")
+                        .HasColumnType("decimal(18, 2)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("SaleInvoiceDetailsTemp");
                 });
 #pragma warning restore 612, 618
         }

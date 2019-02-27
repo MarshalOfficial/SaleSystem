@@ -32,6 +32,20 @@ namespace SaleSystemCore.Models
         public decimal? PurchasePrice { get; set; }
 
         /// <summary>
+        /// ((saleprice - buyprice)/buyprice)*100
+        /// Markup (accounting idiom)
+        /// </summary>
+        public decimal? ProfitMarkup { get; set; }  
+
+
+        /// <summary>
+        /// ((saleprice - buyprice)/saleprice)*100
+        /// /// Margin (accounting idiom)
+        /// </summary>
+        public decimal? ProfitMargin { get; set; }
+
+
+        /// <summary>
         /// Discount Percent
         /// </summary>
         [Column(TypeName = "decimal(18, 2)")]

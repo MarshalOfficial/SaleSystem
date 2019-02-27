@@ -34,14 +34,24 @@ namespace SaleSystemCore.EF
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Product>()
+                .Property(p => p.ProfitMarkup)
+                .HasComputedColumnSql("((isnull(SalePrice,0) - isnull(PurchasePrice,0))/isnull(PurchasePrice,0))*100");
+            modelBuilder.Entity<Product>()
+                .Property(p => p.ProfitMargin)
+                .HasComputedColumnSql("((isnull(SalePrice,0) - isnull(PurchasePrice,0))/isnull(SalePrice,0))*100");
         }
 
         public DbSet<ProductsCategory> ProductsCategories { get; set; }
         public DbSet<ProductsBrand> ProductsBrands { get; set; }
         public DbSet<ProductsProvider> ProductsProviders { get; set; }
         public DbSet<Product> Products { get; set; }
-        public DbSet<PurchaseInvoices> PurchaseInvoices { get; set; }
+        public DbSet<PurchaseInvoice> PurchaseInvoice { get; set; }
         public DbSet<PurchaseInvoiceDetails> PurchaseInvoiceDetails { get; set; }
-            
+        public DbSet<PurchaseInvoiceDetailsTemp> PurchaseInvoiceDetailsTemps { get; set; }
+        public DbSet<SaleInvoice> SaleInvoice { get; set; }
+        public DbSet<SaleInvoiceDetails> SaleInvoiceDetails { get; set; }
+        public DbSet<SaleInvoiceDetailsTemp> SaleInvoiceDetailsTemps { get; set; }
+
     }
 }

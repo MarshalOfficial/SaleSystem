@@ -9,7 +9,7 @@ using System.Text;
 
 namespace SaleSystemCore.Repos
 {
-    public class PurchaseInvoiceRepo : RepoBase<PurchaseInvoices>
+    public class PurchaseInvoiceRepo : RepoBase<PurchaseInvoice>
     {
         public PurchaseInvoiceRepo(DbContextOptions<CoreContext> options)
             : base(options)
@@ -17,9 +17,9 @@ namespace SaleSystemCore.Repos
         public PurchaseInvoiceRepo()
         { }
 
-        public override IEnumerable<PurchaseInvoices> GetAll()
+        public override IEnumerable<PurchaseInvoice> GetAll()
             => Table.OrderBy(x => x.InvoiceNumber);
-        public override IEnumerable<PurchaseInvoices> GetRange(int skip, int take)
+        public override IEnumerable<PurchaseInvoice> GetRange(int skip, int take)
             => GetRange(Table.OrderBy(x => x.InvoiceNumber), skip, take);
     }
 }

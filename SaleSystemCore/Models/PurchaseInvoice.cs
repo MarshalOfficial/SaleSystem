@@ -7,7 +7,7 @@ using System.Text;
 namespace SaleSystemCore.Models
 {
     [Table("PurchaseInvoice")]
-    public class PurchaseInvoices : EntityBase
+    public class PurchaseInvoice : EntityBase   
     {
         /// <summary>
         /// Invoice Number that printed on Invoice paper and generate from Product Provider system
@@ -19,6 +19,12 @@ namespace SaleSystemCore.Models
         /// Invoice That that printed on Invoice paper and generate from Product Provider system
         /// </summary>
         public DateTime? InvoiceDate { get; set; }
+
+        /// <summary>
+        /// Indicate that this invoice has registered by which user
+        /// </summary>
+        public int UserID { get; set; }
+
 
         /// <summary>
         /// Indicate Invoice Product Provider and shows we bought invoice items from which provider

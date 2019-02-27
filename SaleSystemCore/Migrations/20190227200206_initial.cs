@@ -22,6 +22,8 @@ namespace SaleSystemCore.Migrations
                     Barcode = table.Column<string>(maxLength: 500, nullable: true),
                     SalePrice = table.Column<decimal>(type: "decimal(18, 2)", nullable: false),
                     PurchasePrice = table.Column<decimal>(type: "decimal(18, 2)", nullable: true),
+                    ProfitMarkup = table.Column<decimal>(nullable: true, computedColumnSql: "((isnull(SalePrice,0) - isnull(PurchasePrice,0))/isnull(PurchasePrice,0))*100"),
+                    ProfitMargin = table.Column<decimal>(nullable: true, computedColumnSql: "((isnull(SalePrice,0) - isnull(PurchasePrice,0))/isnull(SalePrice,0))*100"),
                     Discount = table.Column<decimal>(type: "decimal(18, 2)", nullable: true),
                     Vat = table.Column<decimal>(type: "decimal(18, 2)", nullable: true),
                     Description = table.Column<string>(nullable: true),
@@ -109,6 +111,7 @@ namespace SaleSystemCore.Migrations
                     IsActive = table.Column<bool>(nullable: false),
                     InvoiceNumber = table.Column<string>(maxLength: 150, nullable: true),
                     InvoiceDate = table.Column<DateTime>(nullable: true),
+                    UserID = table.Column<int>(nullable: false),
                     ProviderID = table.Column<int>(nullable: true),
                     Description = table.Column<string>(nullable: true),
                     SumPrice = table.Column<decimal>(type: "decimal(18, 2)", nullable: true),
@@ -142,6 +145,100 @@ namespace SaleSystemCore.Migrations
                 {
                     table.PrimaryKey("PK_PurchaseInvoiceDetails", x => x.Id);
                 });
+
+            migrationBuilder.CreateTable(
+                name: "PurchaseInvoiceDetailsTemp",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    TimeStamp = table.Column<byte[]>(rowVersion: true, nullable: true),
+                    CreateDate = table.Column<DateTime>(nullable: false),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    IsActive = table.Column<bool>(nullable: false),
+                    UserID = table.Column<int>(nullable: false),
+                    ProductID = table.Column<int>(nullable: false),
+                    Price = table.Column<decimal>(type: "decimal(18, 2)", nullable: false),
+                    Qty = table.Column<decimal>(type: "decimal(18, 2)", nullable: false),
+                    Discount = table.Column<decimal>(type: "decimal(18, 2)", nullable: true),
+                    Vat = table.Column<decimal>(type: "decimal(18, 2)", nullable: true),
+                    Description = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PurchaseInvoiceDetailsTemp", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "SaleInvoice",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    TimeStamp = table.Column<byte[]>(rowVersion: true, nullable: true),
+                    CreateDate = table.Column<DateTime>(nullable: false),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    IsActive = table.Column<bool>(nullable: false),
+                    InvoiceNumber = table.Column<string>(maxLength: 150, nullable: true),
+                    CustomerID = table.Column<int>(nullable: true),
+                    UserID = table.Column<int>(nullable: false),
+                    Description = table.Column<string>(nullable: true),
+                    SumPrice = table.Column<decimal>(type: "decimal(18, 2)", nullable: true),
+                    SumDiscount = table.Column<decimal>(type: "decimal(18, 2)", nullable: true),
+                    SumVat = table.Column<decimal>(type: "decimal(18, 2)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SaleInvoice", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "SaleInvoiceDetails",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    TimeStamp = table.Column<byte[]>(rowVersion: true, nullable: true),
+                    CreateDate = table.Column<DateTime>(nullable: false),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    IsActive = table.Column<bool>(nullable: false),
+                    InvoiceID = table.Column<int>(nullable: false),
+                    ProductID = table.Column<int>(nullable: false),
+                    SalePrice = table.Column<decimal>(type: "decimal(18, 2)", nullable: false),
+                    PurchasePrice = table.Column<decimal>(type: "decimal(18, 2)", nullable: false),
+                    Qty = table.Column<decimal>(type: "decimal(18, 2)", nullable: false),
+                    Discount = table.Column<decimal>(type: "decimal(18, 2)", nullable: true),
+                    Vat = table.Column<decimal>(type: "decimal(18, 2)", nullable: true),
+                    Description = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SaleInvoiceDetails", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "SaleInvoiceDetailsTemp",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    TimeStamp = table.Column<byte[]>(rowVersion: true, nullable: true),
+                    CreateDate = table.Column<DateTime>(nullable: false),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    IsActive = table.Column<bool>(nullable: false),
+                    UserID = table.Column<int>(nullable: false),
+                    ProductID = table.Column<int>(nullable: false),
+                    SalePrice = table.Column<decimal>(type: "decimal(18, 2)", nullable: false),
+                    PurchasePrice = table.Column<decimal>(type: "decimal(18, 2)", nullable: false),
+                    Qty = table.Column<decimal>(type: "decimal(18, 2)", nullable: false),
+                    Discount = table.Column<decimal>(type: "decimal(18, 2)", nullable: true),
+                    Vat = table.Column<decimal>(type: "decimal(18, 2)", nullable: true),
+                    Description = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SaleInvoiceDetailsTemp", x => x.Id);
+                });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -163,6 +260,18 @@ namespace SaleSystemCore.Migrations
 
             migrationBuilder.DropTable(
                 name: "PurchaseInvoiceDetails");
+
+            migrationBuilder.DropTable(
+                name: "PurchaseInvoiceDetailsTemp");
+
+            migrationBuilder.DropTable(
+                name: "SaleInvoice");
+
+            migrationBuilder.DropTable(
+                name: "SaleInvoiceDetails");
+
+            migrationBuilder.DropTable(
+                name: "SaleInvoiceDetailsTemp");
         }
     }
 }
