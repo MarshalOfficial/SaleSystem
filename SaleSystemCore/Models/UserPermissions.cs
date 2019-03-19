@@ -6,10 +6,12 @@ using System.Text;
 
 namespace SaleSystemCore.Models
 {
-    [Table("Permissions")]
-    public class Permission : EntityBase
+    [Table("UserPermissions")]
+    public class UserPermissions : EntityBase
     {
+        public int UserID { get; set; }
+
         [DataType(DataType.Text), MaxLength(150)]
-        public string PermKey { get; set; }     
+        public string PermKey { get; set; } 
     }
 }

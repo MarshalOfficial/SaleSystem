@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SaleSystemCore.EF;
 
 namespace SaleSystemCore.Migrations
 {
     [DbContext(typeof(CoreContext))]
-    partial class CoreContextModelSnapshot : ModelSnapshot
+    [Migration("20190319124228_m1")]
+    partial class m1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -99,37 +101,13 @@ namespace SaleSystemCore.Migrations
                         new
                         {
                             Id = 1,
-                            CreateDate = new DateTime(2019, 3, 19, 18, 11, 16, 777, DateTimeKind.Local).AddTicks(5538),
+                            CreateDate = new DateTime(2019, 3, 19, 16, 12, 27, 537, DateTimeKind.Local).AddTicks(405),
                             IsActive = true,
                             IsDeleted = false,
                             ProductBarcodeCounter = 1L,
                             PurchaseInvoiceCounter = 1L,
                             SaleInvoiceCounter = 1L
                         });
-                });
-
-            modelBuilder.Entity("SaleSystemCore.Models.Permission", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("CreateDate");
-
-                    b.Property<bool>("IsActive");
-
-                    b.Property<bool>("IsDeleted");
-
-                    b.Property<string>("PermKey")
-                        .HasMaxLength(150);
-
-                    b.Property<byte[]>("TimeStamp")
-                        .IsConcurrencyToken()
-                        .ValueGeneratedOnAddOrUpdate();
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Permissions");
                 });
 
             modelBuilder.Entity("SaleSystemCore.Models.Product", b =>
@@ -586,91 +564,6 @@ namespace SaleSystemCore.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("StockLog");
-                });
-
-            modelBuilder.Entity("SaleSystemCore.Models.User", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Address");
-
-                    b.Property<DateTime>("CreateDate");
-
-                    b.Property<string>("Description");
-
-                    b.Property<string>("Email")
-                        .HasMaxLength(150);
-
-                    b.Property<string>("FirstName")
-                        .HasMaxLength(150);
-
-                    b.Property<bool>("IsActive");
-
-                    b.Property<bool>("IsAdmin");
-
-                    b.Property<bool>("IsDeleted");
-
-                    b.Property<string>("LastName")
-                        .HasMaxLength(150);
-
-                    b.Property<string>("Mobile")
-                        .HasMaxLength(150);
-
-                    b.Property<string>("Password")
-                        .HasMaxLength(150);
-
-                    b.Property<byte[]>("TimeStamp")
-                        .IsConcurrencyToken()
-                        .ValueGeneratedOnAddOrUpdate();
-
-                    b.Property<string>("UserName")
-                        .HasMaxLength(150);
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Users");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            CreateDate = new DateTime(2019, 3, 19, 18, 11, 16, 787, DateTimeKind.Local).AddTicks(3791),
-                            Description = "Default admin User, password and other properties would be changed later",
-                            IsActive = true,
-                            IsAdmin = true,
-                            IsDeleted = false,
-                            Password = @"�3�*�H��f�
-�5�M��",
-                            UserName = "admin"
-                        });
-                });
-
-            modelBuilder.Entity("SaleSystemCore.Models.UserPermissions", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("CreateDate");
-
-                    b.Property<bool>("IsActive");
-
-                    b.Property<bool>("IsDeleted");
-
-                    b.Property<string>("PermKey")
-                        .HasMaxLength(150);
-
-                    b.Property<byte[]>("TimeStamp")
-                        .IsConcurrencyToken()
-                        .ValueGeneratedOnAddOrUpdate();
-
-                    b.Property<int>("UserID");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("UserPermissions");
                 });
 #pragma warning restore 612, 618
         }

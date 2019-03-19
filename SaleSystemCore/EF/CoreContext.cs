@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Microsoft.EntityFrameworkCore;
 using SaleSystemCore.Models;
+using SaleSystemCore.Extension;
 
 namespace SaleSystemCore.EF
 {
@@ -40,6 +41,23 @@ namespace SaleSystemCore.EF
             modelBuilder.Entity<Product>()
                 .Property(p => p.ProfitMargin)
                 .HasComputedColumnSql("((isnull(SalePrice,0) - isnull(PurchasePrice,0))/isnull(SalePrice,0))*100");
+
+            modelBuilder.Entity<GlobalSetting>().HasData(new GlobalSetting
+            {
+                Id = 1,
+                SaleInvoiceCounter = 1,
+                PurchaseInvoiceCounter = 1,
+                ProductBarcodeCounter = 1
+            });
+
+            modelBuilder.Entity<User>().HasData(new User
+            {
+                Id = 1,
+                UserName = "admin",
+                Password = "admin".HashString(),
+                Description = "Default admin User, password and other properties would be changed later",
+                IsAdmin = true
+            });
         }
 
         public DbSet<ProductsCategory> ProductsCategories { get; set; }
@@ -55,6 +73,9 @@ namespace SaleSystemCore.EF
         public DbSet<Stock> Stocks { get; set; }
         public DbSet<StockLog> StockLogs { get; set; }
         public DbSet<Customer> Customers { get; set; }
-        public DbSet<GlobalSetting> GlobalSetting { get; set; }     
+        public DbSet<GlobalSetting> GlobalSetting { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<Permission> Permissions { get; set; }
+        public DbSet<UserPermissions> UserPermissions { get; set; } 
     }
 }

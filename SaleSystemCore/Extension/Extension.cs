@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using System.Text;
 
 namespace SaleSystemCore.Extension
@@ -40,6 +41,15 @@ namespace SaleSystemCore.Extension
             {
                 return string.Empty;
             }
+        }
+
+
+        public static string HashString(this string input)
+        {
+            var sha1 = new SHA1CryptoServiceProvider();
+            var sha1data = sha1.ComputeHash(Encoding.ASCII.GetBytes(input));
+            string hashedPassword = new UTF8Encoding().GetString(sha1data);
+            return hashedPassword;
         }
     }
 }
