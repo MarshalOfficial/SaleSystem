@@ -1,9 +1,6 @@
 ﻿using SaleSystemCore.Models;
 using SaleSystemCore.Repos;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace SaleSystemCore.Logic
 {
@@ -11,16 +8,19 @@ namespace SaleSystemCore.Logic
     {
         private UserRepo userRepo;
         private UserPermissionRepo userPermissionRepo;
+        private PermissionRepo permissionRepo;
+
         internal UserModule()
         {
             userRepo = new UserRepo();
             userPermissionRepo = new UserPermissionRepo();
+            permissionRepo = new PermissionRepo();
         }
 
         #region [Users]
-        public List<User> GetAllUsers()
+        public IEnumerable<User> GetAllUsers()
         {
-            return userRepo.GetAll().ToList();
+            return userRepo.GetAll();
         }
 
         public void AddUser(User user)
@@ -37,9 +37,33 @@ namespace SaleSystemCore.Logic
         {
             userRepo.SaveChanges();
         }
+
+        public void DeleteUser(User user)
+        {
+            userRepo.Delete(user);
+        }
         #endregion
 
         #region [UserPermission]
+        public IEnumerable<Permission> GetAllPermissions()
+        {
+            return permissionRepo.GetAll();
+        }
+
+        public void AddUserPermission(UserPermissions userPermissions)
+        {
+            userPermissionRepo.Add(userPermissions);
+        }
+
+        public void DeleteUserPermission(UserPermissions userPermissions)
+        {
+            userPermissionRepo.Delete(userPermissions);
+        }
+
+        public IEnumerable<UserPermissions> GetAllUserPermissions()
+        {
+            return userPermissionRepo.GetAll();
+        }
         #endregion
     }
 }
