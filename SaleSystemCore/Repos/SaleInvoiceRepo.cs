@@ -18,8 +18,8 @@ namespace SaleSystemCore.Repos
         { }
 
         public override IEnumerable<SaleInvoice> GetAll()
-            => Table.OrderBy(x => x.InvoiceNumber);
+            => Table.AsNoTracking().Where(l => !l.IsDeleted).OrderBy(x => x.InvoiceNumber);
         public override IEnumerable<SaleInvoice> GetRange(int skip, int take)
-            => GetRange(Table.OrderBy(x => x.InvoiceNumber), skip, take);
+            => GetRange(Table.AsNoTracking().Where(l => !l.IsDeleted).OrderBy(x => x.InvoiceNumber), skip, take);
     }
 }

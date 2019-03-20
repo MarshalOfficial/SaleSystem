@@ -18,6 +18,7 @@ namespace SaleSystem.WinformUI
             var cash = Cash.LoginUser("admin", "admin");
             var user = Cash._User;
             var perms = Cash._UserPermissionses;
+            var users = Cash._UserModule.GetAllUsers();
         }       
 
         private void buttonExit_Click(object sender, EventArgs e)

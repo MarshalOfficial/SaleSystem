@@ -18,8 +18,8 @@ namespace SaleSystemCore.Repos
         { }
 
         public override IEnumerable<StockLog> GetAll()
-            => Table.OrderBy(x => x.CreateDate);
+            => Table.AsNoTracking().Where(l => !l.IsDeleted).OrderBy(x => x.CreateDate);
         public override IEnumerable<StockLog> GetRange(int skip, int take)
-            => GetRange(Table.OrderBy(x => x.CreateDate), skip, take);
+            => GetRange(Table.AsNoTracking().Where(l => !l.IsDeleted).OrderBy(x => x.CreateDate), skip, take);
     }
 }

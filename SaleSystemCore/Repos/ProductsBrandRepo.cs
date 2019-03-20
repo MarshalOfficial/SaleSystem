@@ -18,8 +18,8 @@ namespace SaleSystemCore.Repos
         { }
 
         public override IEnumerable<ProductsBrand> GetAll()
-            => Table.OrderBy(x => x.Title);
+            => Table.AsNoTracking().Where(l => !l.IsDeleted).OrderBy(x => x.Title);
         public override IEnumerable<ProductsBrand> GetRange(int skip, int take)
-            => GetRange(Table.OrderBy(x => x.Title), skip, take);
+            => GetRange(Table.AsNoTracking().Where(l => !l.IsDeleted).OrderBy(x => x.Title), skip, take);
     }
 }

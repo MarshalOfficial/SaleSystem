@@ -18,11 +18,11 @@ namespace SaleSystemCore.Repos
         { }
 
         public override IEnumerable<UserPermissions> GetAll()
-            => Table.OrderBy(x => x.Id);
+            => Table.AsNoTracking().Where(l => !l.IsDeleted).OrderBy(x => x.Id);
         public override IEnumerable<UserPermissions> GetRange(int skip, int take)
-            => GetRange(Table.OrderBy(x => x.Id), skip, take);
+            => GetRange(Table.AsNoTracking().Where(l => !l.IsDeleted).OrderBy(x => x.Id), skip, take);
 
         public List<UserPermissions> GetUserPermissions(int userid) =>  
-            Table.AsNoTracking().Where(l => l.UserID == userid).ToList();       
+            Table.AsNoTracking().Where(l => !l.IsDeleted).Where(l => l.UserID == userid).ToList();       
     }
 }
