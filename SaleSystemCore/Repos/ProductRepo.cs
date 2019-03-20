@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using DNTPersianUtils.Core;
 using Microsoft.EntityFrameworkCore;
 using SaleSystemCore.EF;
 using SaleSystemCore.Models;
@@ -21,5 +22,16 @@ namespace SaleSystemCore.Repos
             => Table.AsNoTracking().Where(l => !l.IsDeleted).OrderBy(x => x.Name);
         public override IEnumerable<Product> GetRange(int skip, int take)
             => GetRange(Table.AsNoTracking().Where(l => !l.IsDeleted).OrderBy(x => x.Name), skip, take);
+
+        public Product GetProductByBarcode(string code)
+        {
+            return Table.FirstOrDefault(l => l.Barcode == code);
+        }
+
+        public IEnumerable<Product> SearchProductByName(string name)
+        {
+            var txt = name.ToEnglishNumbers().ApplyCorrectYeKe();
+            return Table.AsNoTracking().Where(l => l.Name.Contains(txt));
+        }
     }
 }

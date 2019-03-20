@@ -15,6 +15,9 @@ namespace SaleSystem.WinformUI
         public Form1()
         {
             InitializeComponent();
+
+
+            // just for test
             var cash = Cash.LoginUser("admin", "admin");
             var user = Cash._User;
             var perms = Cash._UserPermissionses;
