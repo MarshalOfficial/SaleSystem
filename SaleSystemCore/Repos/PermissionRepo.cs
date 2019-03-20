@@ -18,7 +18,7 @@ namespace SaleSystemCore.Repos
         { }
 
         public override IEnumerable<Permission> GetAll()
-            => Table.OrderBy(x => x.Id);
+            => Table.AsNoTracking().OrderBy(x => x.Id);
         public override IEnumerable<Permission> GetRange(int skip, int take)
             => GetRange(Table.OrderBy(x => x.Id), skip, take);
     }

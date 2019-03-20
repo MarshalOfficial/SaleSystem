@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.329
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28714.193
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SaleSystemCore", "SaleSystemCore\SaleSystemCore.csproj", "{C146DDAE-E60E-48B0-B4BC-9DC100A505DD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SaleSystemCore.Test", "SaleSystemCore.Test\SaleSystemCore.Test.csproj", "{981BF24C-469B-4922-811C-CE143F5305FA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SaleSystemCore.Test", "SaleSystemCore.Test\SaleSystemCore.Test.csproj", "{981BF24C-469B-4922-811C-CE143F5305FA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SaleSystem.WinformUI", "SaleSystem.WinformUI\SaleSystem.WinformUI.csproj", "{388AACA0-AC51-4C4E-A8A9-D23543CE9B0E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{981BF24C-469B-4922-811C-CE143F5305FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{981BF24C-469B-4922-811C-CE143F5305FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{981BF24C-469B-4922-811C-CE143F5305FA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{388AACA0-AC51-4C4E-A8A9-D23543CE9B0E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{388AACA0-AC51-4C4E-A8A9-D23543CE9B0E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{388AACA0-AC51-4C4E-A8A9-D23543CE9B0E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{388AACA0-AC51-4C4E-A8A9-D23543CE9B0E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

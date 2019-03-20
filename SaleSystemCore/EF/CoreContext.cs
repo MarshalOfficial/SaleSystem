@@ -50,6 +50,16 @@ namespace SaleSystemCore.EF
                 ProductBarcodeCounter = 1
             });
 
+            modelBuilder.Entity<Permission>().HasData(new Permission[]
+            {
+                new Permission() {Id = 1, PermKey = "UserModule"},
+                new Permission() {Id = 2, PermKey = "ProductModule"},
+                new Permission() {Id = 3, PermKey = "StockModule"},
+                new Permission() {Id = 4, PermKey = "SaleModule"},
+                new Permission() {Id = 5, PermKey = "PurchaseModule"},
+                new Permission() {Id = 6, PermKey = "CustomerModule"}
+            });
+
             modelBuilder.Entity<User>().HasData(new User
             {
                 Id = 1,
