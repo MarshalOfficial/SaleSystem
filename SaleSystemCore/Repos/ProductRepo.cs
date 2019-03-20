@@ -19,13 +19,13 @@ namespace SaleSystemCore.Repos
         { }
 
         public override IEnumerable<Product> GetAll()
-            => Table.AsNoTracking().Where(l => !l.IsDeleted).OrderBy(x => x.Name);
+            => Table.AsNoTracking().OrderBy(x => x.Name);
         public override IEnumerable<Product> GetRange(int skip, int take)
-            => GetRange(Table.AsNoTracking().Where(l => !l.IsDeleted).OrderBy(x => x.Name), skip, take);
+            => GetRange(Table.AsNoTracking().OrderBy(x => x.Name), skip, take);
 
         public Product GetProductByBarcode(string code)
         {
-            return Table.FirstOrDefault(l => l.Barcode == code);
+            return Table.AsNoTracking().FirstOrDefault(l => l.Barcode == code);
         }
 
         public IEnumerable<Product> SearchProductByName(string name)

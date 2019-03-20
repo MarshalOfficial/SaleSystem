@@ -50,6 +50,14 @@ namespace SaleSystemCore.EF
                 ProductBarcodeCounter = 1
             });
 
+            modelBuilder.Entity<User>().HasIndex(u => u.UserName).IsUnique();
+            modelBuilder.Entity<User>().HasIndex(u => u.Mobile).IsUnique();
+            modelBuilder.Entity<Customer>().HasIndex(u => u.Mobile).IsUnique();
+            modelBuilder.Entity<Product>().HasIndex(u => u.Barcode).IsUnique();
+            modelBuilder.Entity<Permission>().HasIndex(u => u.PermKey).IsUnique();
+            modelBuilder.Entity<SaleInvoice>().HasIndex(u => u.InvoiceNumber).IsUnique();
+            modelBuilder.Entity<PurchaseInvoice>().HasIndex(u => u.InvoiceNumber).IsUnique();
+
             modelBuilder.Entity<Permission>().HasData(new Permission[]
             {
                 new Permission() {Id = 1, PermKey = "UserModule"},

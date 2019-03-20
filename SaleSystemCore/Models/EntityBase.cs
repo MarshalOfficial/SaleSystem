@@ -11,7 +11,6 @@ namespace SaleSystemCore.Models
         {
             CreateDate = DateTime.Now;
             IsActive = true;
-            IsDeleted = false;
         }
 
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -22,9 +21,6 @@ namespace SaleSystemCore.Models
 
         [Required]
         public DateTime CreateDate { get; set; }
-
-        [Required]
-        public bool IsDeleted { get; set; }
 
         [Required]
         public bool IsActive { get; set; }

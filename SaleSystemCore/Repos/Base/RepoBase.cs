@@ -47,9 +47,7 @@ namespace SaleSystemCore.Repos.Base
         }
         public virtual int Delete(T entity, bool persist = true)
         {
-            //Table.Remove(entity);
-            entity.IsDeleted = true;
-            Table.Update(entity);
+            Table.Remove(entity);
             return persist ? SaveChanges() : 0;
         }
 
@@ -64,15 +62,13 @@ namespace SaleSystemCore.Repos.Base
                 }
                 throw new Exception("Unable to delete due to concurrency violation.");
             }
-            Db.Entry(new T { Id = id, TimeStamp = timeStamp, IsDeleted = true }).State = EntityState.Modified;
+            Db.Entry(new T { Id = id, TimeStamp = timeStamp }).State = EntityState.Deleted;
             return persist ? SaveChanges() : 0;
         }
 
         public virtual int DeleteRange(IEnumerable<T> entities, bool persist = true)
         {
-            //Table.RemoveRange(entities);
-            entities.ToList().ForEach(l=>l.IsDeleted = true);
-            Table.UpdateRange(entities);
+            Table.RemoveRange(entities);
             return persist ? SaveChanges() : 0;
         }
 
@@ -83,10 +79,10 @@ namespace SaleSystemCore.Repos.Base
         }
 
         public T Find(int? id) => Table.Find(id);
-        public T GetFirst() => Table.AsNoTracking().Where(l => !l.IsDeleted).FirstOrDefault();
-        public virtual IEnumerable<T> GetAll() => Table.AsNoTracking().Where(l => !l.IsDeleted);
+        public T GetFirst() => Table.AsNoTracking().FirstOrDefault();
+        public virtual IEnumerable<T> GetAll() => Table.AsNoTracking();
         internal IEnumerable<T> GetRange(IQueryable<T> query, int skip, int take)
-            => query.AsNoTracking().Where(l => !l.IsDeleted).Skip(skip).Take(take);
+            => query.AsNoTracking().Skip(skip).Take(take);
         public virtual IEnumerable<T> GetRange(int skip, int take)
             => GetRange(Table, skip, take);
 

@@ -19,11 +19,11 @@ namespace SaleSystemCore.Repos
         { }
 
         public override IEnumerable<User> GetAll()
-            => Table.AsNoTracking().Where(l => !l.IsDeleted).OrderBy(x => x.Id);
+            => Table.AsNoTracking().OrderBy(x => x.Id);
         public override IEnumerable<User> GetRange(int skip, int take)
-            => GetRange(Table.AsNoTracking().Where(l => !l.IsDeleted).OrderBy(x => x.Id), skip, take);
+            => GetRange(Table.AsNoTracking().OrderBy(x => x.Id), skip, take);
 
         public User FindByCredentials(string username, string password) =>
-            Table.AsNoTracking().Where(l => !l.IsDeleted).FirstOrDefault(l => l.UserName == username && l.Password == password.HashString());
+            Table.AsNoTracking().FirstOrDefault(l => l.UserName == username && l.Password == password.HashString());
     }
 }
