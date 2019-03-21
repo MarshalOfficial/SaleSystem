@@ -21,5 +21,10 @@ namespace SaleSystemCore.Repos
             => Table.AsNoTracking().OrderBy(x => x.ProductID);
         public override IEnumerable<PurchaseInvoiceDetails> GetRange(int skip, int take)
             => GetRange(Table.AsNoTracking().OrderBy(x => x.ProductID), skip, take);
+
+
+
+        public IEnumerable<PurchaseInvoiceDetails> GetAllByInvoiceID(int invid)
+            => Table.AsNoTracking().Where(l=>l.InvoiceID == invid).OrderBy(x => x.ProductID);
     }
 }

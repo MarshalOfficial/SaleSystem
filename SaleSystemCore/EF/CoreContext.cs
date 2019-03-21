@@ -103,5 +103,9 @@ namespace SaleSystemCore.EF
         public DbSet<UserPermissions> UserPermissions { get; set; }
         public DbSet<StockLogType> StockLogTypes { get; set; }
 
+        //todo add saleinvoicepayments and payment type table
+
+        //todo add Stock adjustment table and processes
+
     }
 }

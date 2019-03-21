@@ -21,5 +21,24 @@ namespace SaleSystemCore.Repos
             => Table.AsNoTracking().OrderBy(x => x.ProductID);
         public override IEnumerable<Stock> GetRange(int skip, int take)
             => GetRange(Table.AsNoTracking().OrderBy(x => x.ProductID), skip, take);
+
+        public void SetProductStock(int productid)
+        {
+            var stock = new StockLogRepo().GetStockByProductID(productid);
+            if (stock == null)
+            {
+                stock = 0;
+            }
+            var item = Table.AsNoTracking().FirstOrDefault(l => l.ProductID == productid);
+            if (item == null)
+            {
+                Add(new Stock() {ProductID = productid, Qty = stock.Value});
+            }
+            else
+            {
+                item.Qty = stock.Value;
+                Update(item);
+            }
+        }
     }
 }

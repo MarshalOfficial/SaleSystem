@@ -1,6 +1,7 @@
 ﻿using SaleSystemCore.Repos.Base;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using SaleSystemCore.Models;
 using Microsoft.EntityFrameworkCore;
@@ -15,6 +16,34 @@ namespace SaleSystemCore.Repos
         { }
         public GlobalSettingRepo()
         { }
-        
+
+        public long GetPurchaseInvoiceCounter()
+        {
+            var obj = Table.First();
+            var counter = obj.PurchaseInvoiceCounter;
+            obj.PurchaseInvoiceCounter++;
+            SaveChanges();
+            return counter;
+        }
+
+        public long GetSaleInvoiceCounter() 
+        {
+            var obj = Table.First();
+            var counter = obj.SaleInvoiceCounter;
+            obj.SaleInvoiceCounter++;
+            SaveChanges();
+            return counter;
+        }
+
+
+        public long GetBarcodeCounter() 
+        {
+            var obj = Table.First();
+            var counter = obj.ProductBarcodeCounter;
+            obj.ProductBarcodeCounter++;
+            SaveChanges();
+            return counter;
+        }
+
     }
 }

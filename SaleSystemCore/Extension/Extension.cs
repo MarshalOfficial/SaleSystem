@@ -51,5 +51,10 @@ namespace SaleSystemCore.Extension
             string hashedPassword = new UTF8Encoding().GetString(sha1data);
             return hashedPassword;
         }
+
+        public static string GetPureDateTime()
+        {
+            return DateTime.Now.ToString("yyyyMMdd").Replace(":", "").Replace("-", "").Replace("/", "").Replace(@"\", "").Replace(" ", "");
+        }
     }
 }

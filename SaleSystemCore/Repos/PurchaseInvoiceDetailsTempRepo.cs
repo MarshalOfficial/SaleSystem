@@ -17,9 +17,9 @@ namespace SaleSystemCore.Repos
         public PurchaseInvoiceDetailsTempRepo()
         { }
 
-        public override IEnumerable<PurchaseInvoiceDetailsTemp> GetAll()
-            => Table.AsNoTracking().OrderBy(x => x.UserID);
-        public override IEnumerable<PurchaseInvoiceDetailsTemp> GetRange(int skip, int take)
-            => GetRange(Table.AsNoTracking().OrderBy(x => x.UserID), skip, take);
-    }
+        
+        public IEnumerable<PurchaseInvoiceDetailsTemp> GetAllByUserID(int userid)
+            => Table.Where(l => l.UserID == userid).ToList();
+
+    }   
 }
