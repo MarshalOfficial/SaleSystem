@@ -68,6 +68,12 @@ namespace SaleSystemCore.EF
                 new Permission() {Id = 6, PermKey = "CustomerModule"}
             });
 
+            modelBuilder.Entity<StockLogType>().HasData(new StockLogType[]
+            {
+                new StockLogType() {Id = 1, Title = "PurchaseInvoice"},
+                new StockLogType() {Id = 2, Title = "SaleInvoice"}
+            });
+
             modelBuilder.Entity<User>().HasData(new User
             {
                 Id = 1,
@@ -94,6 +100,8 @@ namespace SaleSystemCore.EF
         public DbSet<GlobalSetting> GlobalSetting { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Permission> Permissions { get; set; }
-        public DbSet<UserPermissions> UserPermissions { get; set; } 
+        public DbSet<UserPermissions> UserPermissions { get; set; }
+        public DbSet<StockLogType> StockLogTypes { get; set; }
+
     }
 }

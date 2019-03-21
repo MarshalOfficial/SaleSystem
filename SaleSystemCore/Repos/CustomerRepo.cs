@@ -21,5 +21,10 @@ namespace SaleSystemCore.Repos
             => Table.AsNoTracking().OrderBy(x => x.Id);
         public override IEnumerable<Customer> GetRange(int skip, int take)
             => GetRange(Table.AsNoTracking().OrderBy(x => x.Id), skip, take);
+
+        public Customer GetCustomerByMobile(string mobile)
+        {
+            return Table.FirstOrDefault(l => l.Mobile == mobile);
+        }
     }
 }

@@ -10,7 +10,6 @@ namespace SaleSystemCore.Models
     {
         public int ProductID { get; set; }
         public decimal Qty { get; set; }
-        public int? PurchaseInvoiceID { get; set; }
-        public int? SaleInvoiceID { get; set; }
+        public int TypeID { get; set; } // 1: PurchaseInvoice, 2: SaleInvoice
     }
 }
