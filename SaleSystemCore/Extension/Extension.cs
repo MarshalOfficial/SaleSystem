@@ -56,5 +56,10 @@ namespace SaleSystemCore.Extension
         {
             return DateTime.Now.ToString("yyyyMMdd").Replace(":", "").Replace("-", "").Replace("/", "").Replace(@"\", "").Replace(" ", "");
         }
+
+        public static string GetDateTimeYearPart()  
+        {
+            return DateTime.Now.ToString("yyyy").Replace(":", "").Replace("-", "").Replace("/", "").Replace(@"\", "").Replace(" ", "");
+        }
     }
 }

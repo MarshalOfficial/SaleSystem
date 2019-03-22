@@ -74,6 +74,13 @@ namespace SaleSystemCore.EF
                 new StockLogType() {Id = 2, Title = "SaleInvoice"}
             });
 
+
+            modelBuilder.Entity<SaleInvoicePaymentTypes>().HasData(new SaleInvoicePaymentTypes[]
+            {
+                new SaleInvoicePaymentTypes() {Id = 1, Title = "Cash"},
+                new SaleInvoicePaymentTypes() {Id = 2, Title = "BankPOS"}
+            });
+
             modelBuilder.Entity<User>().HasData(new User
             {
                 Id = 1,
@@ -102,8 +109,8 @@ namespace SaleSystemCore.EF
         public DbSet<Permission> Permissions { get; set; }
         public DbSet<UserPermissions> UserPermissions { get; set; }
         public DbSet<StockLogType> StockLogTypes { get; set; }
-
-        //todo add saleinvoicepayments and payment type table
+        public DbSet<SaleInvoicePayments> SaleInvoicePayments { get; set; }
+        public DbSet<SaleInvoicePaymentTypes> SaleInvoicePaymentTypes { get; set; }
 
         //todo add Stock adjustment table and processes
 

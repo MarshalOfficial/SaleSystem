@@ -65,7 +65,7 @@ namespace SaleSystemCore.Logic
         #region SavePI
         private string GetNewPurchaseInvoiceNo()
         {
-            return Extension.Extension.GetPureDateTime() + "-PI" + globalSettingRepo.GetPurchaseInvoiceCounter();
+            return Extension.Extension.GetDateTimeYearPart() + "-PI" + globalSettingRepo.GetPurchaseInvoiceCounter();
         }
 
         public bool SavePurchaseInvoice(int userid, string description, int providerid, DateTime invoicedate)
