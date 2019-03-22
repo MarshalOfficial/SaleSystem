@@ -42,6 +42,17 @@ namespace SaleSystem.WinformUI
             //Cash._PurchaseModule.SavePurchaseInvoice(1, 1, "test", 0, DateTime.Now);
 
 
+            // insert stock adjustment invoice test
+            //Cash._StockAdjustmentModule.AddDetailToTemp(new StockAdjustmentDetailsTemp()
+            //{ ProductID = 1, Qty = 1, Price = 12, Description = "memo1", UserID = 1 });
+            //Cash._StockAdjustmentModule.AddDetailToTemp(new StockAdjustmentDetailsTemp()
+            //{ ProductID = 2, Qty = 2, Price = 42, Description = "memo2", UserID = 1 });
+            //Cash._StockAdjustmentModule.AddDetailToTemp(new StockAdjustmentDetailsTemp()
+            //{ ProductID = 3, Qty = 3, Price = 12, Description = "memo3", UserID = 1 });
+
+            //Cash._StockAdjustmentModule.SaveStockAdjustmentInvoice(1, 2, true, "memooo", DateTime.Now);
+
+
             Application.Run(new Form1());
         }
     }
