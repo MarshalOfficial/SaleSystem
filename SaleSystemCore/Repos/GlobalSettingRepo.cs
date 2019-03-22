@@ -35,6 +35,15 @@ namespace SaleSystemCore.Repos
             return counter;
         }
 
+        public long GetStockAdjustmentCounter() 
+        {
+            var obj = Table.First();
+            var counter = obj.StockAdjustmentInvoiceCounter;
+            obj.StockAdjustmentInvoiceCounter++;
+            SaveChanges();
+            return counter;
+        }
+
 
         public long GetBarcodeCounter() 
         {

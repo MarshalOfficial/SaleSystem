@@ -18,8 +18,9 @@ namespace SaleSystemCore.Logic
         public static PurchaseModule _PurchaseModule;
         public static ProductModule _ProductModule;
         public static CustomerModule _CustomerModule;
+        public static StockAdjustmentModule _StockAdjustmentModule; 
 
-        
+
 
         public static bool LoginUser(string username, string password)
         {
@@ -87,6 +88,9 @@ namespace SaleSystemCore.Logic
                             break;
                         case "CustomerModule":
                             _CustomerModule = new CustomerModule();
+                            break;
+                        case "StockAdjustmentModule":
+                            _StockAdjustmentModule = new StockAdjustmentModule();
                             break;
                     }
                 }

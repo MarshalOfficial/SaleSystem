@@ -10,6 +10,7 @@ namespace SaleSystemCore.Models
     {
         public long SaleInvoiceCounter { get; set; }
         public long PurchaseInvoiceCounter { get; set; }
+        public long StockAdjustmentInvoiceCounter { get; set; } 
         public long ProductBarcodeCounter { get; set; }
         public string SelectedLanguage { get; set; }    
     }

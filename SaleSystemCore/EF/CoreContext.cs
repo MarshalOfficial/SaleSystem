@@ -47,7 +47,8 @@ namespace SaleSystemCore.EF
                 Id = 1,
                 SaleInvoiceCounter = 1,
                 PurchaseInvoiceCounter = 1,
-                ProductBarcodeCounter = 1
+                ProductBarcodeCounter = 1,
+                StockAdjustmentInvoiceCounter = 1
             });
 
             modelBuilder.Entity<User>().HasIndex(u => u.UserName).IsUnique();
@@ -57,6 +58,7 @@ namespace SaleSystemCore.EF
             modelBuilder.Entity<Permission>().HasIndex(u => u.PermKey).IsUnique();
             modelBuilder.Entity<SaleInvoice>().HasIndex(u => u.InvoiceNumber).IsUnique();
             modelBuilder.Entity<PurchaseInvoice>().HasIndex(u => u.InvoiceNumber).IsUnique();
+            modelBuilder.Entity<StockAdjustment>().HasIndex(u => u.InvoiceNumber).IsUnique();
 
             modelBuilder.Entity<Permission>().HasData(new Permission[]
             {
@@ -65,13 +67,15 @@ namespace SaleSystemCore.EF
                 new Permission() {Id = 3, PermKey = "StockModule"},
                 new Permission() {Id = 4, PermKey = "SaleModule"},
                 new Permission() {Id = 5, PermKey = "PurchaseModule"},
-                new Permission() {Id = 6, PermKey = "CustomerModule"}
+                new Permission() {Id = 6, PermKey = "CustomerModule"},
+                new Permission() {Id = 7, PermKey = "StockAdjustmentModule"}
             });
 
             modelBuilder.Entity<StockLogType>().HasData(new StockLogType[]
             {
                 new StockLogType() {Id = 1, Title = "PurchaseInvoice"},
-                new StockLogType() {Id = 2, Title = "SaleInvoice"}
+                new StockLogType() {Id = 2, Title = "SaleInvoice"},
+                new StockLogType() {Id = 3, Title = "StockAdjustment"}  
             });
 
 
@@ -85,6 +89,14 @@ namespace SaleSystemCore.EF
             {
                 new PurchaseInvoiceType() {Id = 1, Title = "Purchase"},
                 new PurchaseInvoiceType() {Id = 2, Title = "PurchaseReturn"}    
+            });
+
+            modelBuilder.Entity<StockAdjustmentTypes>().HasData(new StockAdjustmentTypes[]
+            {
+                new StockAdjustmentTypes() {Id = 1, Title = "Periodic Counting"},
+                new StockAdjustmentTypes() {Id = 2, Title = "Waste Products"},
+                new StockAdjustmentTypes() {Id = 3, Title = "Management Consumption"},
+                new StockAdjustmentTypes() {Id = 4, Title = "Test Usage of Product"},
             });
 
             modelBuilder.Entity<User>().HasData(new User
@@ -118,8 +130,10 @@ namespace SaleSystemCore.EF
         public DbSet<SaleInvoicePayments> SaleInvoicePayments { get; set; }
         public DbSet<SaleInvoicePaymentTypes> SaleInvoicePaymentTypes { get; set; }
         public DbSet<PurchaseInvoiceType> PurchaseInvoiceTypes { get; set; }
-
-        //todo add Stock adjustment table and processes
+        public DbSet<StockAdjustment> StockAdjustment { get; set; }
+        public DbSet<StockAdjustmentDetails> StockAdjustmentDetails { get; set; }
+        public DbSet<StockAdjustmentDetailsTemp> StockAdjustmentDetailsTemp { get; set; }
+        public DbSet<StockAdjustmentTypes> StockAdjustmentTypes { get; set; }
 
     }
 }
