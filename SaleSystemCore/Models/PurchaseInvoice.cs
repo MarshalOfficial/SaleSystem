@@ -25,6 +25,7 @@ namespace SaleSystemCore.Models
         /// </summary>
         public int UserID { get; set; }
 
+        public int InvoiceType { get; set; }    
 
         /// <summary>
         /// Indicate Invoice Product Provider and shows we bought invoice items from which provider

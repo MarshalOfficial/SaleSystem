@@ -81,6 +81,12 @@ namespace SaleSystemCore.EF
                 new SaleInvoicePaymentTypes() {Id = 2, Title = "BankPOS"}
             });
 
+            modelBuilder.Entity<PurchaseInvoiceType>().HasData(new PurchaseInvoiceType[]
+            {
+                new PurchaseInvoiceType() {Id = 1, Title = "Purchase"},
+                new PurchaseInvoiceType() {Id = 2, Title = "PurchaseReturn"}    
+            });
+
             modelBuilder.Entity<User>().HasData(new User
             {
                 Id = 1,
@@ -111,6 +117,7 @@ namespace SaleSystemCore.EF
         public DbSet<StockLogType> StockLogTypes { get; set; }
         public DbSet<SaleInvoicePayments> SaleInvoicePayments { get; set; }
         public DbSet<SaleInvoicePaymentTypes> SaleInvoicePaymentTypes { get; set; }
+        public DbSet<PurchaseInvoiceType> PurchaseInvoiceTypes { get; set; }
 
         //todo add Stock adjustment table and processes
 

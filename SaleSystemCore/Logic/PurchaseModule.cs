@@ -62,13 +62,14 @@ namespace SaleSystemCore.Logic
 
         #endregion
 
-        #region SavePI
+        #region SavePurchaseInvoice
         private string GetNewPurchaseInvoiceNo()
         {
             return Extension.Extension.GetDateTimeYearPart() + "-PI" + globalSettingRepo.GetPurchaseInvoiceCounter();
         }
 
-        public bool SavePurchaseInvoice(int userid, string description, int providerid, DateTime invoicedate)
+        public bool SavePurchaseInvoice(int userid, int invoiceType, string description, int providerid,
+            DateTime invoicedate)
         {
             try
             {
@@ -86,10 +87,12 @@ namespace SaleSystemCore.Logic
                     UserID = userid,
                     Description = description,
                     ProviderID = providerid,
+                    InvoiceType = invoiceType,
                     InvoiceDate = invoicedate,
-                    SumPrice = detailtemps.Sum(l => l.Price * l.Qty),
-                    SumDiscount = detailtemps.Sum(l => ((l.Discount * l.Price) / 100) * l.Qty),
-                    SumVat = detailtemps.Sum(l => ((l.Vat * l.Price) / 100) * l.Qty)
+                    SumPrice = ((invoiceType == 1) ? 1 : -1) * detailtemps.Sum(l => l.Price * l.Qty),
+                    SumDiscount = ((invoiceType == 1) ? 1 : -1) *
+                                  detailtemps.Sum(l => ((l.Discount * l.Price) / 100) * l.Qty),
+                    SumVat = ((invoiceType == 1) ? 1 : -1) * detailtemps.Sum(l => ((l.Vat * l.Price) / 100) * l.Qty)
                 };
 
                 purchaseInvoiceRepo.Add(header);
@@ -101,7 +104,7 @@ namespace SaleSystemCore.Logic
                     {
                         InvoiceID = header.Id,
                         ProductID = item.ProductID,
-                        Qty = item.Qty,
+                        Qty = ((invoiceType == 1) ? 1 : -1) * item.Qty,
                         Vat = item.Vat,
                         Price = item.Price,
                         Discount = item.Discount,
@@ -110,7 +113,7 @@ namespace SaleSystemCore.Logic
                     stockLogRepo.Add(new StockLog()
                     {
                         ProductID = item.ProductID,
-                        Qty = item.Qty,
+                        Qty = ((invoiceType == 1) ? 1 : -1) * item.Qty,
                         InvoiceNumber = pino,
                         TypeID = 1
                     });
@@ -127,6 +130,7 @@ namespace SaleSystemCore.Logic
                 return false;
             }
         }
+
         #endregion
 
         #region Report

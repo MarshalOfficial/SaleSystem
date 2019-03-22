@@ -33,13 +33,13 @@ namespace SaleSystem.WinformUI
 
             // insert purchase invoice test
             //Cash._PurchaseModule.AddDetailToTemp(new PurchaseInvoiceDetailsTemp()
-            //{ ProductID = 1, Qty = 10, Vat = 9, Price = 12, Discount = 5, Description = "adasd", UserID = 1 });
+            //    {ProductID = 1, Qty = 10, Vat = 9, Price = 12, Discount = 5, Description = "adasd", UserID = 1});
             //Cash._PurchaseModule.AddDetailToTemp(new PurchaseInvoiceDetailsTemp()
-            //{ ProductID = 2, Qty = 13, Vat = 9, Price = 42, Discount = 2.5m, Description = "adasd", UserID = 1 });
+            //    {ProductID = 2, Qty = 13, Vat = 9, Price = 42, Discount = 2.5m, Description = "adasd", UserID = 1});
             //Cash._PurchaseModule.AddDetailToTemp(new PurchaseInvoiceDetailsTemp()
-            //{ ProductID = 3, Qty = 23, Vat = 9, Price = 12, Discount = 7.8m, Description = "adasd", UserID = 1 });
+            //    {ProductID = 3, Qty = 23, Vat = 9, Price = 12, Discount = 7.8m, Description = "adasd", UserID = 1});
 
-            //Cash._PurchaseModule.SavePurchaseInvoice(1, "test", 0, DateTime.Now);
+            //Cash._PurchaseModule.SavePurchaseInvoice(1, 1, "test", 0, DateTime.Now);
 
 
             Application.Run(new Form1());
