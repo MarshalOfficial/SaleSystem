@@ -55,5 +55,8 @@ namespace SaleSystemCore.Models
         [Column(TypeName = "decimal(18, 2)")]
         public decimal? SumVat { get; set; }
 
+
+        public decimal? FinalPrice { get; set; }
+
     }
 }

@@ -10,14 +10,14 @@ using SaleSystemCore.EF;
 namespace SaleSystemCore.Migrations
 {
     [DbContext(typeof(CoreContext))]
-    [Migration("20190320165112_m3")]
-    partial class m3
+    [Migration("20190325145332_in1")]
+    partial class in1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.2.2-servicing-10034")
+                .HasAnnotation("ProductVersion", "2.2.3-servicing-35854")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -47,8 +47,6 @@ namespace SaleSystemCore.Migrations
 
                     b.Property<bool>("IsActive");
 
-                    b.Property<bool>("IsDeleted");
-
                     b.Property<string>("LastName")
                         .HasMaxLength(150);
 
@@ -66,6 +64,10 @@ namespace SaleSystemCore.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Mobile")
+                        .IsUnique()
+                        .HasFilter("[Mobile] IS NOT NULL");
+
                     b.ToTable("Customers");
                 });
 
@@ -79,8 +81,6 @@ namespace SaleSystemCore.Migrations
 
                     b.Property<bool>("IsActive");
 
-                    b.Property<bool>("IsDeleted");
-
                     b.Property<long>("ProductBarcodeCounter");
 
                     b.Property<long>("PurchaseInvoiceCounter");
@@ -88,6 +88,8 @@ namespace SaleSystemCore.Migrations
                     b.Property<long>("SaleInvoiceCounter");
 
                     b.Property<string>("SelectedLanguage");
+
+                    b.Property<long>("StockAdjustmentInvoiceCounter");
 
                     b.Property<byte[]>("TimeStamp")
                         .IsConcurrencyToken()
@@ -101,12 +103,12 @@ namespace SaleSystemCore.Migrations
                         new
                         {
                             Id = 1,
-                            CreateDate = new DateTime(2019, 3, 20, 20, 21, 10, 927, DateTimeKind.Local).AddTicks(93),
+                            CreateDate = new DateTime(2019, 3, 25, 19, 23, 31, 525, DateTimeKind.Local).AddTicks(5720),
                             IsActive = true,
-                            IsDeleted = false,
                             ProductBarcodeCounter = 1L,
                             PurchaseInvoiceCounter = 1L,
-                            SaleInvoiceCounter = 1L
+                            SaleInvoiceCounter = 1L,
+                            StockAdjustmentInvoiceCounter = 1L
                         });
                 });
 
@@ -120,8 +122,6 @@ namespace SaleSystemCore.Migrations
 
                     b.Property<bool>("IsActive");
 
-                    b.Property<bool>("IsDeleted");
-
                     b.Property<string>("PermKey")
                         .HasMaxLength(150);
 
@@ -131,56 +131,61 @@ namespace SaleSystemCore.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("PermKey")
+                        .IsUnique()
+                        .HasFilter("[PermKey] IS NOT NULL");
+
                     b.ToTable("Permissions");
 
                     b.HasData(
                         new
                         {
                             Id = 1,
-                            CreateDate = new DateTime(2019, 3, 20, 20, 21, 10, 933, DateTimeKind.Local).AddTicks(3344),
+                            CreateDate = new DateTime(2019, 3, 25, 19, 23, 31, 552, DateTimeKind.Local).AddTicks(4782),
                             IsActive = true,
-                            IsDeleted = false,
                             PermKey = "UserModule"
                         },
                         new
                         {
                             Id = 2,
-                            CreateDate = new DateTime(2019, 3, 20, 20, 21, 10, 933, DateTimeKind.Local).AddTicks(4260),
+                            CreateDate = new DateTime(2019, 3, 25, 19, 23, 31, 552, DateTimeKind.Local).AddTicks(5775),
                             IsActive = true,
-                            IsDeleted = false,
                             PermKey = "ProductModule"
                         },
                         new
                         {
                             Id = 3,
-                            CreateDate = new DateTime(2019, 3, 20, 20, 21, 10, 933, DateTimeKind.Local).AddTicks(4278),
+                            CreateDate = new DateTime(2019, 3, 25, 19, 23, 31, 552, DateTimeKind.Local).AddTicks(5802),
                             IsActive = true,
-                            IsDeleted = false,
                             PermKey = "StockModule"
                         },
                         new
                         {
                             Id = 4,
-                            CreateDate = new DateTime(2019, 3, 20, 20, 21, 10, 933, DateTimeKind.Local).AddTicks(4281),
+                            CreateDate = new DateTime(2019, 3, 25, 19, 23, 31, 552, DateTimeKind.Local).AddTicks(5807),
                             IsActive = true,
-                            IsDeleted = false,
                             PermKey = "SaleModule"
                         },
                         new
                         {
                             Id = 5,
-                            CreateDate = new DateTime(2019, 3, 20, 20, 21, 10, 933, DateTimeKind.Local).AddTicks(4285),
+                            CreateDate = new DateTime(2019, 3, 25, 19, 23, 31, 552, DateTimeKind.Local).AddTicks(5810),
                             IsActive = true,
-                            IsDeleted = false,
                             PermKey = "PurchaseModule"
                         },
                         new
                         {
                             Id = 6,
-                            CreateDate = new DateTime(2019, 3, 20, 20, 21, 10, 933, DateTimeKind.Local).AddTicks(4288),
+                            CreateDate = new DateTime(2019, 3, 25, 19, 23, 31, 552, DateTimeKind.Local).AddTicks(5814),
                             IsActive = true,
-                            IsDeleted = false,
                             PermKey = "CustomerModule"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            CreateDate = new DateTime(2019, 3, 25, 19, 23, 31, 552, DateTimeKind.Local).AddTicks(5819),
+                            IsActive = true,
+                            PermKey = "StockAdjustmentModule"
                         });
                 });
 
@@ -205,8 +210,6 @@ namespace SaleSystemCore.Migrations
                         .HasColumnType("decimal(18, 2)");
 
                     b.Property<bool>("IsActive");
-
-                    b.Property<bool>("IsDeleted");
 
                     b.Property<string>("Name")
                         .HasMaxLength(250);
@@ -236,6 +239,10 @@ namespace SaleSystemCore.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Barcode")
+                        .IsUnique()
+                        .HasFilter("[Barcode] IS NOT NULL");
+
                     b.ToTable("Products");
                 });
 
@@ -250,8 +257,6 @@ namespace SaleSystemCore.Migrations
                     b.Property<string>("Description");
 
                     b.Property<bool>("IsActive");
-
-                    b.Property<bool>("IsDeleted");
 
                     b.Property<byte[]>("TimeStamp")
                         .IsConcurrencyToken()
@@ -274,8 +279,6 @@ namespace SaleSystemCore.Migrations
                     b.Property<DateTime>("CreateDate");
 
                     b.Property<bool>("IsActive");
-
-                    b.Property<bool>("IsDeleted");
 
                     b.Property<byte[]>("TimeStamp")
                         .IsConcurrencyToken()
@@ -311,8 +314,6 @@ namespace SaleSystemCore.Migrations
                         .HasMaxLength(150);
 
                     b.Property<bool>("IsActive");
-
-                    b.Property<bool>("IsDeleted");
 
                     b.Property<string>("Mobile")
                         .HasMaxLength(50);
@@ -354,14 +355,18 @@ namespace SaleSystemCore.Migrations
 
                     b.Property<string>("Description");
 
+                    b.Property<decimal?>("FinalPrice")
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasComputedColumnSql("(isnull(SumPrice,0) + isnull(SumVat,0)) - isnull(SumDiscount,0) ");
+
                     b.Property<DateTime?>("InvoiceDate");
 
                     b.Property<string>("InvoiceNumber")
                         .HasMaxLength(150);
 
-                    b.Property<bool>("IsActive");
+                    b.Property<int>("InvoiceType");
 
-                    b.Property<bool>("IsDeleted");
+                    b.Property<bool>("IsActive");
 
                     b.Property<int?>("ProviderID");
 
@@ -381,6 +386,10 @@ namespace SaleSystemCore.Migrations
                     b.Property<int>("UserID");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("InvoiceNumber")
+                        .IsUnique()
+                        .HasFilter("[InvoiceNumber] IS NOT NULL");
 
                     b.ToTable("PurchaseInvoice");
                 });
@@ -402,8 +411,6 @@ namespace SaleSystemCore.Migrations
 
                     b.Property<bool>("IsActive");
 
-                    b.Property<bool>("IsDeleted");
-
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18, 2)");
 
@@ -411,6 +418,10 @@ namespace SaleSystemCore.Migrations
 
                     b.Property<decimal>("Qty")
                         .HasColumnType("decimal(18, 2)");
+
+                    b.Property<decimal?>("RowPrice")
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasComputedColumnSql("qty * ((((100-isnull(discount,0)) * isnull(Price,0))/100) + ((isnull(Vat,0) * isnull(Price,0))/100)) ");
 
                     b.Property<byte[]>("TimeStamp")
                         .IsConcurrencyToken()
@@ -439,8 +450,6 @@ namespace SaleSystemCore.Migrations
 
                     b.Property<bool>("IsActive");
 
-                    b.Property<bool>("IsDeleted");
-
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18, 2)");
 
@@ -448,6 +457,10 @@ namespace SaleSystemCore.Migrations
 
                     b.Property<decimal>("Qty")
                         .HasColumnType("decimal(18, 2)");
+
+                    b.Property<decimal?>("RowPrice")
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasComputedColumnSql("qty * ((((100-isnull(discount,0)) * isnull(Price,0))/100) + ((isnull(Vat,0) * isnull(Price,0))/100)) ");
 
                     b.Property<byte[]>("TimeStamp")
                         .IsConcurrencyToken()
@@ -463,6 +476,44 @@ namespace SaleSystemCore.Migrations
                     b.ToTable("PurchaseInvoiceDetailsTemp");
                 });
 
+            modelBuilder.Entity("SaleSystemCore.Models.PurchaseInvoiceType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("CreateDate");
+
+                    b.Property<bool>("IsActive");
+
+                    b.Property<byte[]>("TimeStamp")
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate();
+
+                    b.Property<string>("Title")
+                        .HasMaxLength(150);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("PurchaseInvoiceType");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreateDate = new DateTime(2019, 3, 25, 19, 23, 31, 553, DateTimeKind.Local).AddTicks(1438),
+                            IsActive = true,
+                            Title = "Purchase"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CreateDate = new DateTime(2019, 3, 25, 19, 23, 31, 553, DateTimeKind.Local).AddTicks(2192),
+                            IsActive = true,
+                            Title = "PurchaseReturn"
+                        });
+                });
+
             modelBuilder.Entity("SaleSystemCore.Models.SaleInvoice", b =>
                 {
                     b.Property<int>("Id")
@@ -475,12 +526,14 @@ namespace SaleSystemCore.Migrations
 
                     b.Property<string>("Description");
 
+                    b.Property<decimal?>("FinalPrice")
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasComputedColumnSql("(isnull(SumPrice,0) + isnull(SumVat,0)) - isnull(SumDiscount,0) ");
+
                     b.Property<string>("InvoiceNumber")
                         .HasMaxLength(150);
 
                     b.Property<bool>("IsActive");
-
-                    b.Property<bool>("IsDeleted");
 
                     b.Property<decimal?>("SumDiscount")
                         .HasColumnType("decimal(18, 2)");
@@ -498,6 +551,10 @@ namespace SaleSystemCore.Migrations
                     b.Property<int>("UserID");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("InvoiceNumber")
+                        .IsUnique()
+                        .HasFilter("[InvoiceNumber] IS NOT NULL");
 
                     b.ToTable("SaleInvoice");
                 });
@@ -519,8 +576,6 @@ namespace SaleSystemCore.Migrations
 
                     b.Property<bool>("IsActive");
 
-                    b.Property<bool>("IsDeleted");
-
                     b.Property<int>("ProductID");
 
                     b.Property<decimal>("PurchasePrice")
@@ -528,6 +583,10 @@ namespace SaleSystemCore.Migrations
 
                     b.Property<decimal>("Qty")
                         .HasColumnType("decimal(18, 2)");
+
+                    b.Property<decimal?>("RowPrice")
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasComputedColumnSql("qty * ((((100-isnull(discount,0)) * isnull(SalePrice,0))/100) + ((isnull(Vat,0) * isnull(SalePrice,0))/100)) ");
 
                     b.Property<decimal>("SalePrice")
                         .HasColumnType("decimal(18, 2)");
@@ -559,8 +618,6 @@ namespace SaleSystemCore.Migrations
 
                     b.Property<bool>("IsActive");
 
-                    b.Property<bool>("IsDeleted");
-
                     b.Property<int>("ProductID");
 
                     b.Property<decimal>("PurchasePrice")
@@ -568,6 +625,10 @@ namespace SaleSystemCore.Migrations
 
                     b.Property<decimal>("Qty")
                         .HasColumnType("decimal(18, 2)");
+
+                    b.Property<decimal?>("RowPrice")
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasComputedColumnSql("qty * ((((100-isnull(discount,0)) * isnull(SalePrice,0))/100) + ((isnull(Vat,0) * isnull(SalePrice,0))/100)) ");
 
                     b.Property<decimal>("SalePrice")
                         .HasColumnType("decimal(18, 2)");
@@ -586,6 +647,94 @@ namespace SaleSystemCore.Migrations
                     b.ToTable("SaleInvoiceDetailsTemp");
                 });
 
+            modelBuilder.Entity("SaleSystemCore.Models.SaleInvoicePaymentTypes", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("ConnectedPortNumber")
+                        .HasMaxLength(150);
+
+                    b.Property<string>("ConnectedPortType")
+                        .HasMaxLength(150);
+
+                    b.Property<DateTime>("CreateDate");
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(150);
+
+                    b.Property<bool>("IsActive");
+
+                    b.Property<bool>("IsConnectedToPos");
+
+                    b.Property<string>("OnlinePaymentApi")
+                        .HasMaxLength(150);
+
+                    b.Property<string>("OnlinePaymentKey")
+                        .HasMaxLength(150);
+
+                    b.Property<string>("OnlinePaymentUrl")
+                        .HasMaxLength(150);
+
+                    b.Property<byte[]>("TimeStamp")
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate();
+
+                    b.Property<string>("Title")
+                        .HasMaxLength(150);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("SaleInvoicePaymentTypes");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreateDate = new DateTime(2019, 3, 25, 19, 23, 31, 552, DateTimeKind.Local).AddTicks(9261),
+                            IsActive = true,
+                            IsConnectedToPos = false,
+                            Title = "Cash"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CreateDate = new DateTime(2019, 3, 25, 19, 23, 31, 553, DateTimeKind.Local).AddTicks(312),
+                            IsActive = true,
+                            IsConnectedToPos = false,
+                            Title = "BankPOS"
+                        });
+                });
+
+            modelBuilder.Entity("SaleSystemCore.Models.SaleInvoicePayments", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("CreateDate");
+
+                    b.Property<string>("Description");
+
+                    b.Property<int>("InvoiceID");
+
+                    b.Property<bool>("IsActive");
+
+                    b.Property<int>("PayTypeID");
+
+                    b.Property<byte[]>("TimeStamp")
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate();
+
+                    b.Property<decimal>("Value")
+                        .HasColumnType("decimal(18, 2)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("SaleInvoicePayments");
+                });
+
             modelBuilder.Entity("SaleSystemCore.Models.Stock", b =>
                 {
                     b.Property<int>("Id")
@@ -595,8 +744,6 @@ namespace SaleSystemCore.Migrations
                     b.Property<DateTime>("CreateDate");
 
                     b.Property<bool>("IsActive");
-
-                    b.Property<bool>("IsDeleted");
 
                     b.Property<int>("ProductID");
 
@@ -611,7 +758,108 @@ namespace SaleSystemCore.Migrations
                     b.ToTable("Stock");
                 });
 
-            modelBuilder.Entity("SaleSystemCore.Models.StockLog", b =>
+            modelBuilder.Entity("SaleSystemCore.Models.StockAdjustment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("CreateDate");
+
+                    b.Property<string>("Description");
+
+                    b.Property<DateTime?>("InvoiceDate");
+
+                    b.Property<string>("InvoiceNumber")
+                        .HasMaxLength(150);
+
+                    b.Property<bool>("IsActive");
+
+                    b.Property<bool>("IsOutput");
+
+                    b.Property<decimal?>("SumPrice")
+                        .HasColumnType("decimal(18, 2)");
+
+                    b.Property<byte[]>("TimeStamp")
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate();
+
+                    b.Property<int>("Type");
+
+                    b.Property<int>("UserID");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("InvoiceNumber")
+                        .IsUnique()
+                        .HasFilter("[InvoiceNumber] IS NOT NULL");
+
+                    b.ToTable("StockAdjustment");
+                });
+
+            modelBuilder.Entity("SaleSystemCore.Models.StockAdjustmentDetails", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("CreateDate");
+
+                    b.Property<string>("Description");
+
+                    b.Property<int>("InvoiceID");
+
+                    b.Property<bool>("IsActive");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18, 2)");
+
+                    b.Property<int>("ProductID");
+
+                    b.Property<decimal>("Qty")
+                        .HasColumnType("decimal(18, 2)");
+
+                    b.Property<byte[]>("TimeStamp")
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate();
+
+                    b.HasKey("Id");
+
+                    b.ToTable("StockAdjustmentDetails");
+                });
+
+            modelBuilder.Entity("SaleSystemCore.Models.StockAdjustmentDetailsTemp", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("CreateDate");
+
+                    b.Property<string>("Description");
+
+                    b.Property<bool>("IsActive");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18, 2)");
+
+                    b.Property<int>("ProductID");
+
+                    b.Property<decimal>("Qty")
+                        .HasColumnType("decimal(18, 2)");
+
+                    b.Property<byte[]>("TimeStamp")
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate();
+
+                    b.Property<int>("UserID");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("StockAdjustmentDetailsTemp");
+                });
+
+            modelBuilder.Entity("SaleSystemCore.Models.StockAdjustmentTypes", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -621,23 +869,118 @@ namespace SaleSystemCore.Migrations
 
                     b.Property<bool>("IsActive");
 
-                    b.Property<bool>("IsDeleted");
+                    b.Property<byte[]>("TimeStamp")
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate();
+
+                    b.Property<string>("Title")
+                        .HasMaxLength(250);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("StockAdjustmentTypes");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreateDate = new DateTime(2019, 3, 25, 19, 23, 31, 553, DateTimeKind.Local).AddTicks(3157),
+                            IsActive = true,
+                            Title = "Periodic Counting"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CreateDate = new DateTime(2019, 3, 25, 19, 23, 31, 553, DateTimeKind.Local).AddTicks(3820),
+                            IsActive = true,
+                            Title = "Waste Products"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CreateDate = new DateTime(2019, 3, 25, 19, 23, 31, 553, DateTimeKind.Local).AddTicks(3841),
+                            IsActive = true,
+                            Title = "Management Consumption"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            CreateDate = new DateTime(2019, 3, 25, 19, 23, 31, 553, DateTimeKind.Local).AddTicks(3845),
+                            IsActive = true,
+                            Title = "Test Usage of Product"
+                        });
+                });
+
+            modelBuilder.Entity("SaleSystemCore.Models.StockLog", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("CreateDate");
+
+                    b.Property<string>("InvoiceNumber")
+                        .HasMaxLength(150);
+
+                    b.Property<bool>("IsActive");
 
                     b.Property<int>("ProductID");
 
-                    b.Property<int?>("PurchaseInvoiceID");
-
                     b.Property<decimal>("Qty");
-
-                    b.Property<int?>("SaleInvoiceID");
 
                     b.Property<byte[]>("TimeStamp")
                         .IsConcurrencyToken()
                         .ValueGeneratedOnAddOrUpdate();
 
+                    b.Property<int>("TypeID");
+
                     b.HasKey("Id");
 
                     b.ToTable("StockLog");
+                });
+
+            modelBuilder.Entity("SaleSystemCore.Models.StockLogType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("CreateDate");
+
+                    b.Property<bool>("IsActive");
+
+                    b.Property<byte[]>("TimeStamp")
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate();
+
+                    b.Property<string>("Title");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("StockLogType");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreateDate = new DateTime(2019, 3, 25, 19, 23, 31, 552, DateTimeKind.Local).AddTicks(7039),
+                            IsActive = true,
+                            Title = "PurchaseInvoice"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CreateDate = new DateTime(2019, 3, 25, 19, 23, 31, 552, DateTimeKind.Local).AddTicks(7751),
+                            IsActive = true,
+                            Title = "SaleInvoice"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CreateDate = new DateTime(2019, 3, 25, 19, 23, 31, 552, DateTimeKind.Local).AddTicks(7785),
+                            IsActive = true,
+                            Title = "StockAdjustment"
+                        });
                 });
 
             modelBuilder.Entity("SaleSystemCore.Models.User", b =>
@@ -662,8 +1005,6 @@ namespace SaleSystemCore.Migrations
 
                     b.Property<bool>("IsAdmin");
 
-                    b.Property<bool>("IsDeleted");
-
                     b.Property<string>("LastName")
                         .HasMaxLength(150);
 
@@ -682,17 +1023,24 @@ namespace SaleSystemCore.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Mobile")
+                        .IsUnique()
+                        .HasFilter("[Mobile] IS NOT NULL");
+
+                    b.HasIndex("UserName")
+                        .IsUnique()
+                        .HasFilter("[UserName] IS NOT NULL");
+
                     b.ToTable("Users");
 
                     b.HasData(
                         new
                         {
                             Id = 1,
-                            CreateDate = new DateTime(2019, 3, 20, 20, 21, 10, 933, DateTimeKind.Local).AddTicks(5788),
+                            CreateDate = new DateTime(2019, 3, 25, 19, 23, 31, 553, DateTimeKind.Local).AddTicks(4677),
                             Description = "Default admin User, password and other properties would be changed later",
                             IsActive = true,
                             IsAdmin = true,
-                            IsDeleted = false,
                             Password = @"�3�*�H��f�
 �5�M��",
                             UserName = "admin"
@@ -708,8 +1056,6 @@ namespace SaleSystemCore.Migrations
                     b.Property<DateTime>("CreateDate");
 
                     b.Property<bool>("IsActive");
-
-                    b.Property<bool>("IsDeleted");
 
                     b.Property<string>("PermKey")
                         .HasMaxLength(150);

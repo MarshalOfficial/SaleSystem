@@ -54,5 +54,7 @@ namespace SaleSystemCore.Models
         /// description
         /// </summary>
         public string Description { get; set; }
+
+        public decimal? RowPrice { get; set; }
     }
 }

@@ -101,7 +101,7 @@ namespace SaleSystemCore.Migrations
                         new
                         {
                             Id = 1,
-                            CreateDate = new DateTime(2019, 3, 23, 2, 10, 53, 559, DateTimeKind.Local).AddTicks(5353),
+                            CreateDate = new DateTime(2019, 3, 25, 19, 23, 31, 525, DateTimeKind.Local).AddTicks(5720),
                             IsActive = true,
                             ProductBarcodeCounter = 1L,
                             PurchaseInvoiceCounter = 1L,
@@ -139,49 +139,49 @@ namespace SaleSystemCore.Migrations
                         new
                         {
                             Id = 1,
-                            CreateDate = new DateTime(2019, 3, 23, 2, 10, 53, 591, DateTimeKind.Local).AddTicks(6606),
+                            CreateDate = new DateTime(2019, 3, 25, 19, 23, 31, 552, DateTimeKind.Local).AddTicks(4782),
                             IsActive = true,
                             PermKey = "UserModule"
                         },
                         new
                         {
                             Id = 2,
-                            CreateDate = new DateTime(2019, 3, 23, 2, 10, 53, 591, DateTimeKind.Local).AddTicks(7730),
+                            CreateDate = new DateTime(2019, 3, 25, 19, 23, 31, 552, DateTimeKind.Local).AddTicks(5775),
                             IsActive = true,
                             PermKey = "ProductModule"
                         },
                         new
                         {
                             Id = 3,
-                            CreateDate = new DateTime(2019, 3, 23, 2, 10, 53, 591, DateTimeKind.Local).AddTicks(7758),
+                            CreateDate = new DateTime(2019, 3, 25, 19, 23, 31, 552, DateTimeKind.Local).AddTicks(5802),
                             IsActive = true,
                             PermKey = "StockModule"
                         },
                         new
                         {
                             Id = 4,
-                            CreateDate = new DateTime(2019, 3, 23, 2, 10, 53, 591, DateTimeKind.Local).AddTicks(7763),
+                            CreateDate = new DateTime(2019, 3, 25, 19, 23, 31, 552, DateTimeKind.Local).AddTicks(5807),
                             IsActive = true,
                             PermKey = "SaleModule"
                         },
                         new
                         {
                             Id = 5,
-                            CreateDate = new DateTime(2019, 3, 23, 2, 10, 53, 591, DateTimeKind.Local).AddTicks(7767),
+                            CreateDate = new DateTime(2019, 3, 25, 19, 23, 31, 552, DateTimeKind.Local).AddTicks(5810),
                             IsActive = true,
                             PermKey = "PurchaseModule"
                         },
                         new
                         {
                             Id = 6,
-                            CreateDate = new DateTime(2019, 3, 23, 2, 10, 53, 591, DateTimeKind.Local).AddTicks(7771),
+                            CreateDate = new DateTime(2019, 3, 25, 19, 23, 31, 552, DateTimeKind.Local).AddTicks(5814),
                             IsActive = true,
                             PermKey = "CustomerModule"
                         },
                         new
                         {
                             Id = 7,
-                            CreateDate = new DateTime(2019, 3, 23, 2, 10, 53, 591, DateTimeKind.Local).AddTicks(7778),
+                            CreateDate = new DateTime(2019, 3, 25, 19, 23, 31, 552, DateTimeKind.Local).AddTicks(5819),
                             IsActive = true,
                             PermKey = "StockAdjustmentModule"
                         });
@@ -353,6 +353,10 @@ namespace SaleSystemCore.Migrations
 
                     b.Property<string>("Description");
 
+                    b.Property<decimal?>("FinalPrice")
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasComputedColumnSql("(isnull(SumPrice,0) + isnull(SumVat,0)) - isnull(SumDiscount,0) ");
+
                     b.Property<DateTime?>("InvoiceDate");
 
                     b.Property<string>("InvoiceNumber")
@@ -413,6 +417,10 @@ namespace SaleSystemCore.Migrations
                     b.Property<decimal>("Qty")
                         .HasColumnType("decimal(18, 2)");
 
+                    b.Property<decimal?>("RowPrice")
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasComputedColumnSql("qty * ((((100-isnull(discount,0)) * isnull(Price,0))/100) + ((isnull(Vat,0) * isnull(Price,0))/100)) ");
+
                     b.Property<byte[]>("TimeStamp")
                         .IsConcurrencyToken()
                         .ValueGeneratedOnAddOrUpdate();
@@ -447,6 +455,10 @@ namespace SaleSystemCore.Migrations
 
                     b.Property<decimal>("Qty")
                         .HasColumnType("decimal(18, 2)");
+
+                    b.Property<decimal?>("RowPrice")
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasComputedColumnSql("qty * ((((100-isnull(discount,0)) * isnull(Price,0))/100) + ((isnull(Vat,0) * isnull(Price,0))/100)) ");
 
                     b.Property<byte[]>("TimeStamp")
                         .IsConcurrencyToken()
@@ -487,14 +499,14 @@ namespace SaleSystemCore.Migrations
                         new
                         {
                             Id = 1,
-                            CreateDate = new DateTime(2019, 3, 23, 2, 10, 53, 592, DateTimeKind.Local).AddTicks(3540),
+                            CreateDate = new DateTime(2019, 3, 25, 19, 23, 31, 553, DateTimeKind.Local).AddTicks(1438),
                             IsActive = true,
                             Title = "Purchase"
                         },
                         new
                         {
                             Id = 2,
-                            CreateDate = new DateTime(2019, 3, 23, 2, 10, 53, 592, DateTimeKind.Local).AddTicks(4391),
+                            CreateDate = new DateTime(2019, 3, 25, 19, 23, 31, 553, DateTimeKind.Local).AddTicks(2192),
                             IsActive = true,
                             Title = "PurchaseReturn"
                         });
@@ -511,6 +523,10 @@ namespace SaleSystemCore.Migrations
                     b.Property<int?>("CustomerID");
 
                     b.Property<string>("Description");
+
+                    b.Property<decimal?>("FinalPrice")
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasComputedColumnSql("(isnull(SumPrice,0) + isnull(SumVat,0)) - isnull(SumDiscount,0) ");
 
                     b.Property<string>("InvoiceNumber")
                         .HasMaxLength(150);
@@ -566,6 +582,10 @@ namespace SaleSystemCore.Migrations
                     b.Property<decimal>("Qty")
                         .HasColumnType("decimal(18, 2)");
 
+                    b.Property<decimal?>("RowPrice")
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasComputedColumnSql("qty * ((((100-isnull(discount,0)) * isnull(SalePrice,0))/100) + ((isnull(Vat,0) * isnull(SalePrice,0))/100)) ");
+
                     b.Property<decimal>("SalePrice")
                         .HasColumnType("decimal(18, 2)");
 
@@ -603,6 +623,10 @@ namespace SaleSystemCore.Migrations
 
                     b.Property<decimal>("Qty")
                         .HasColumnType("decimal(18, 2)");
+
+                    b.Property<decimal?>("RowPrice")
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasComputedColumnSql("qty * ((((100-isnull(discount,0)) * isnull(SalePrice,0))/100) + ((isnull(Vat,0) * isnull(SalePrice,0))/100)) ");
 
                     b.Property<decimal>("SalePrice")
                         .HasColumnType("decimal(18, 2)");
@@ -666,7 +690,7 @@ namespace SaleSystemCore.Migrations
                         new
                         {
                             Id = 1,
-                            CreateDate = new DateTime(2019, 3, 23, 2, 10, 53, 592, DateTimeKind.Local).AddTicks(1624),
+                            CreateDate = new DateTime(2019, 3, 25, 19, 23, 31, 552, DateTimeKind.Local).AddTicks(9261),
                             IsActive = true,
                             IsConnectedToPos = false,
                             Title = "Cash"
@@ -674,7 +698,7 @@ namespace SaleSystemCore.Migrations
                         new
                         {
                             Id = 2,
-                            CreateDate = new DateTime(2019, 3, 23, 2, 10, 53, 592, DateTimeKind.Local).AddTicks(2418),
+                            CreateDate = new DateTime(2019, 3, 25, 19, 23, 31, 553, DateTimeKind.Local).AddTicks(312),
                             IsActive = true,
                             IsConnectedToPos = false,
                             Title = "BankPOS"
@@ -858,28 +882,28 @@ namespace SaleSystemCore.Migrations
                         new
                         {
                             Id = 1,
-                            CreateDate = new DateTime(2019, 3, 23, 2, 10, 53, 592, DateTimeKind.Local).AddTicks(5460),
+                            CreateDate = new DateTime(2019, 3, 25, 19, 23, 31, 553, DateTimeKind.Local).AddTicks(3157),
                             IsActive = true,
                             Title = "Periodic Counting"
                         },
                         new
                         {
                             Id = 2,
-                            CreateDate = new DateTime(2019, 3, 23, 2, 10, 53, 592, DateTimeKind.Local).AddTicks(6206),
+                            CreateDate = new DateTime(2019, 3, 25, 19, 23, 31, 553, DateTimeKind.Local).AddTicks(3820),
                             IsActive = true,
                             Title = "Waste Products"
                         },
                         new
                         {
                             Id = 3,
-                            CreateDate = new DateTime(2019, 3, 23, 2, 10, 53, 592, DateTimeKind.Local).AddTicks(6233),
+                            CreateDate = new DateTime(2019, 3, 25, 19, 23, 31, 553, DateTimeKind.Local).AddTicks(3841),
                             IsActive = true,
                             Title = "Management Consumption"
                         },
                         new
                         {
                             Id = 4,
-                            CreateDate = new DateTime(2019, 3, 23, 2, 10, 53, 592, DateTimeKind.Local).AddTicks(6237),
+                            CreateDate = new DateTime(2019, 3, 25, 19, 23, 31, 553, DateTimeKind.Local).AddTicks(3845),
                             IsActive = true,
                             Title = "Test Usage of Product"
                         });
@@ -937,21 +961,21 @@ namespace SaleSystemCore.Migrations
                         new
                         {
                             Id = 1,
-                            CreateDate = new DateTime(2019, 3, 23, 2, 10, 53, 591, DateTimeKind.Local).AddTicks(9344),
+                            CreateDate = new DateTime(2019, 3, 25, 19, 23, 31, 552, DateTimeKind.Local).AddTicks(7039),
                             IsActive = true,
                             Title = "PurchaseInvoice"
                         },
                         new
                         {
                             Id = 2,
-                            CreateDate = new DateTime(2019, 3, 23, 2, 10, 53, 592, DateTimeKind.Local).AddTicks(319),
+                            CreateDate = new DateTime(2019, 3, 25, 19, 23, 31, 552, DateTimeKind.Local).AddTicks(7751),
                             IsActive = true,
                             Title = "SaleInvoice"
                         },
                         new
                         {
                             Id = 3,
-                            CreateDate = new DateTime(2019, 3, 23, 2, 10, 53, 592, DateTimeKind.Local).AddTicks(361),
+                            CreateDate = new DateTime(2019, 3, 25, 19, 23, 31, 552, DateTimeKind.Local).AddTicks(7785),
                             IsActive = true,
                             Title = "StockAdjustment"
                         });
@@ -1011,7 +1035,7 @@ namespace SaleSystemCore.Migrations
                         new
                         {
                             Id = 1,
-                            CreateDate = new DateTime(2019, 3, 23, 2, 10, 53, 592, DateTimeKind.Local).AddTicks(7191),
+                            CreateDate = new DateTime(2019, 3, 25, 19, 23, 31, 553, DateTimeKind.Local).AddTicks(4677),
                             Description = "Default admin User, password and other properties would be changed later",
                             IsActive = true,
                             IsAdmin = true,

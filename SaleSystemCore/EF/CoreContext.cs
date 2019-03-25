@@ -42,6 +42,32 @@ namespace SaleSystemCore.EF
                 .Property(p => p.ProfitMargin)
                 .HasComputedColumnSql("((isnull(SalePrice,0) - isnull(PurchasePrice,0))/isnull(SalePrice,0))*100");
 
+
+            modelBuilder.Entity<SaleInvoice>()
+                .Property(p => p.FinalPrice)
+                .HasComputedColumnSql("(isnull(SumPrice,0) + isnull(SumVat,0)) - isnull(SumDiscount,0) ");
+
+            modelBuilder.Entity<PurchaseInvoice>()
+                .Property(p => p.FinalPrice)
+                .HasComputedColumnSql("(isnull(SumPrice,0) + isnull(SumVat,0)) - isnull(SumDiscount,0) ");
+
+            modelBuilder.Entity<SaleInvoiceDetailsTemp>()
+                .Property(p => p.RowPrice)
+                .HasComputedColumnSql("qty * ((((100-isnull(discount,0)) * isnull(SalePrice,0))/100) + ((isnull(Vat,0) * isnull(SalePrice,0))/100)) ");
+
+            modelBuilder.Entity<SaleInvoiceDetails>()
+                .Property(p => p.RowPrice)
+                .HasComputedColumnSql("qty * ((((100-isnull(discount,0)) * isnull(SalePrice,0))/100) + ((isnull(Vat,0) * isnull(SalePrice,0))/100)) ");
+
+            modelBuilder.Entity<PurchaseInvoiceDetailsTemp>()
+                .Property(p => p.RowPrice)
+                .HasComputedColumnSql("qty * ((((100-isnull(discount,0)) * isnull(Price,0))/100) + ((isnull(Vat,0) * isnull(Price,0))/100)) ");
+
+            modelBuilder.Entity<PurchaseInvoiceDetails>()
+                .Property(p => p.RowPrice)
+                .HasComputedColumnSql("qty * ((((100-isnull(discount,0)) * isnull(Price,0))/100) + ((isnull(Vat,0) * isnull(Price,0))/100)) ");
+
+
             modelBuilder.Entity<GlobalSetting>().HasData(new GlobalSetting
             {
                 Id = 1,
