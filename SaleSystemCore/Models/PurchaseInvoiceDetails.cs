@@ -5,6 +5,7 @@ using System.Text;
 
 namespace SaleSystemCore.Models
 {
+    //todo Expiredate issue for products 
     [Table("PurchaseInvoiceDetails")]
     public class PurchaseInvoiceDetails : EntityBase
     {
